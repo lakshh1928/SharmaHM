@@ -1,0 +1,56 @@
+services:
+  app1:
+    build: .
+    container_name: app1
+    env_file: .env
+    restart: always
+    networks:
+      - frontend
+      - backend
+    
+  app2:
+    build: .
+    container_name: app2
+    env_file: .env
+    networks:
+      - frontend
+      - backend
+    restart: always
+  
+  nginx:
+    build:
+      context: ./proxy
+    container_name: nginx
+    ports:
+      - "80:80"
+    networks:
+      - frontend
+    depends_on:
+      - app1
+      - app2
+    restart: always
+
+  db:
+    build:
+      context: ./db
+    container_name: db
+    ports:
+      - "3306:3306"
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+     - backend
+    volumes:
+     - db_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  db_data:
+
+networks:
+  frontend:
+  backend:

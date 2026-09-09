@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS finance_app;
+USE finance_app;
+
+CREATE TABLE IF NOT EXISTS properties (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    tenant VARCHAR(255) NOT NULL,
+    rent INT NOT NULL,
+    due_day INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS liabilities (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    amount INT NOT NULL,
+    due_day INT NOT NULL
+);

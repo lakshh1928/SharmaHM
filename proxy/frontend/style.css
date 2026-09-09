@@ -1,0 +1,23 @@
+body { 
+    font-family: 'Space Grotesk', sans-serif; 
+    background-color: #050505; 
+    color: #e5e5e5; 
+}
+.glass { 
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+}
+.glow-text { 
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5); 
+}
+input { 
+    background: rgba(0,0,0,0.5) !important; 
+    border: 1px solid rgba(255,255,255,0.1) !important; 
+    color: white !important; 
+}
+input:focus { 
+    outline: none; 
+    border-color: #06b6d4 !important; 
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.2); 
+}
