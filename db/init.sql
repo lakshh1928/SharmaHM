@@ -6,12 +6,24 @@ CREATE TABLE IF NOT EXISTS properties (
     name VARCHAR(255) NOT NULL,
     tenant VARCHAR(255) NOT NULL,
     rent INT NOT NULL,
-    due_day INT NOT NULL
+    due_day INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS property_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    property_id INT NOT NULL,
+    entry_type VARCHAR(50) NOT NULL,
+    amount INT NOT NULL,
+    notes VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS liabilities (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     amount INT NOT NULL,
-    due_day INT NOT NULL
+    due_day INT NOT NULL DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );

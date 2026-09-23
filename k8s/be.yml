@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app
+  namespace: sharmahm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-app
+        image: l4ksh1928/be-2:latest
+        envFrom:
+        - secretRef:
+            name: db-secret
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-service
+  namespace: sharmahm
+spec:
+  selector:
+    app: python-app
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
