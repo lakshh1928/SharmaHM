@@ -9,7 +9,6 @@ jobs:
   deploy:
     runs-on: self-hosted
 
-
     steps:
       - name: checkout code
         uses: actions/checkout@v4
@@ -24,21 +23,19 @@ jobs:
         run: |
           IMG_TAG=${{ github.sha }}
           docker build -t l4ksh1928/be:$IMG_TAG .
-          docker build -t l4ksh1928/fe:$IMAGE_TAG ./proxy
-          docker build -t l4ksh1928/db:$IMAGE_TAG ./db
+          docker build -t l4ksh1928/fe:$IMG_TAG ./proxy
+          docker build -t l4ksh1928/db:$IMG_TAG ./db
 
-        - name: push img
-          run: |
-            IMG_TAG=${{ github.sha }}
-            docker push l4ksh1928/be-$IMG_TAG
-            docker push l4ksh1928/fe-$IMG_TAG
-            docker push l4ksh1928/db-$IMG_TAG
+      - name: push img
+        run: |
+          IMG_TAG=${{ github.sha }}
+          docker push l4ksh1928/be:$IMG_TAG
+          docker push l4ksh1928/fe:$IMG_TAG
+          docker push l4ksh1928/db:$IMG_TAG
 
-        - name: Roll Update
-          run: |
-            IMG_TAG=${{ github.sha }}
-          kubectl set image deployment/python-app pyhton-app=l4ksh1928/be:IMG_TAG -n sharmahm
-          kubectl set image deployment/nginx-app nginx=l4ksh1928/fe:IMG_TAG -n sharmahm
-          kubectl set image deployment/db db=l4ksh1928/db:IMG_TAG -n sharmahm
-
-
+      - name: Roll Update
+        run: |
+          IMG_TAG=${{ github.sha }}
+          kubectl set image deployment/python-app python-app=l4ksh1928/be:$IMG_TAG -n sharmahm
+          kubectl set image deployment/nginx-app nginx=l4ksh1928/fe:$IMG_TAG -n sharmahm
+          kubectl set image deployment/db db=l4ksh1928/db:$IMG_TAG -n sharmahm
