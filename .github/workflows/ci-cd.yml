@@ -37,5 +37,5 @@ jobs:
         run: |
           IMG_TAG=${{ github.sha }}
           kubectl set image deployment/python-app python-app=l4ksh1928/be:$IMG_TAG -n sharmahm
-          kubectl set image deployment/nginx-app nginx=l4ksh1928/fe:$IMG_TAG -n sharmahm
+          kubectl set image deployment/nginx-proxy nginx=l4ksh1928/fe:$IMG_TAG -n sharmahm
           kubectl set image deployment/db db=l4ksh1928/db:$IMG_TAG -n sharmahm
